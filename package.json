@@ -1,0 +1,25 @@
+{
+  "name": "stock-prices-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node back/app.js",
+    "nginx": "node nginx/compile.js",
+    "ngx": "node nginx/compile.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "^5.0.0",
+    "koa": "^2.4.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.3.0",
+    "moment-timezone": "^0.5.14",
+    "request": "^2.83.0",
+    "request-promise-native": "^1.0.5",
+    "sqlite": "^2.9.0",
+    "sqlite3": "^3.1.13"
+  }
+}

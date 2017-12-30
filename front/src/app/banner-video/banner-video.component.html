@@ -1,0 +1,1 @@
+<video *ngIf="video" (canplay)="isLoaded || loaded()" autoplay loop><source src="{{video}}.mp4" type="video/mp4" /><source src="{{video}}.webm" type="video/webm" /></video>

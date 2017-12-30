@@ -1,0 +1,19 @@
+<div class="thumbnails">
+  <div class="box stock-box" *ngFor="let stock of stocks" [ngClass]="{'selected': stock.selected}" id="stock-box_{{stock.title}}">
+    <p class="stock-status">{{stock.status === true ? 'Actual' : (stock.status === false ? 'Loading' : 'Cached')}}</p>
+    <div class="inner">
+      <h3>{{stock.title}}</h3>
+      <div *ngIf="stock.lastPrice; else stockPriceLoading" class="box-content">
+        <p
+          [ngClass]="{'up': (stock.lastPrice.change === 1), 'down': (stock.lastPrice.change === -1)}"
+        >{{stock.lastPrice.price.Close}}</p>
+        <span>Last update at {{transformDate(stock.lastPrice.time)}}</span>
+      </div>
+      <ng-template #stockPriceLoading><p>Loading...</p></ng-template>
+      <div class="manage-stock">
+        <a routerLink="/history/{{stock.title}}" class="button">Watch history</a>
+        <a (click)="deleteStock($event, stock)" class="button">Del</a>
+      </div>
+    </div>
+  </div>
+</div>

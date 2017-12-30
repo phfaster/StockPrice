@@ -1,0 +1,4 @@
+{
+    "nginxUser": "yaph",
+    "nginxGroup": "Admin"
+}

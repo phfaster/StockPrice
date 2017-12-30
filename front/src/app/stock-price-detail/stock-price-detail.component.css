@@ -1,0 +1,147 @@
+#stock__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 4em;
+}
+
+#stock__header > a.button {
+  position: absolute;
+  padding: 0 28px;
+}
+
+#stock__header > h1.header__title {
+  width: 100%;
+  font-size: 2em;
+  line-height: 1em;
+  text-align: center;
+  margin: 0;
+}
+
+#stock__header > h1.header__title > span {
+  position: absolute;
+  background: #303a4c;
+  color: #95a3b9;
+  font-size: .34em;
+  line-height: 1.5em;
+  padding: 0 .5em;
+  border-radius: 4px;
+  margin: 0 1em;
+}
+
+.stock__signs {
+  display: table;
+  margin: 0 auto 2em;
+}
+
+.stock__signs p.stock__sign {
+  display: inline-block;
+  font-size: 18px;
+  margin: 0 10px;
+  border-style: solid;
+  border-width: 0 0 1px 0;
+}
+
+
+.stock__chart {
+  /*background: #1b1e27;*/
+  height: 500px;
+}
+
+.stock__chart .ngx-charts text {
+  fill: #A0AABE;
+}
+
+.stock__chart .ngx-charts .tooltip-anchor {
+  fill: white;
+}
+
+.stock__chart .ngx-charts .gridline-path {
+  stroke: #2f3646;
+}
+
+.stock__chart .ngx-charts .refline-path {
+  stroke: #455066;
+}
+
+.stock__chart .ngx-charts .reference-area {
+  fill: #fff;
+}
+
+.stock__chart .ngx-charts .grid-panel.odd rect {
+  fill: rgba(255, 255, 255, 0.05);
+}
+
+.stock__chart .ngx-charts .force-directed-graph .edge {
+  stroke: #455066;
+}
+
+.stock__chart .ngx-charts .number-card p {
+  color: #f0f1f6;
+}
+
+.stock__chart .ngx-charts .gauge .background-arc path {
+  fill: #2f3646;
+}
+
+.stock__chart .ngx-charts .gauge .gauge-tick path {
+  stroke: #A0AABE;
+}
+
+.stock__chart .ngx-charts .gauge .gauge-tick text {
+  fill: #A0AABE;
+}
+
+.stock__chart .ngx-charts .linear-gauge .background-bar path {
+  fill: #2f3646;
+}
+
+.stock__chart .ngx-charts .linear-gauge .units {
+  fill: #72809b;
+}
+
+.stock__chart .ngx-charts .timeline .brush-background {
+  fill: rgba(255, 255, 255, 0.05);
+}
+
+.stock__chart .ngx-charts .timeline .brush .selection {
+  fill: rgba(255, 255, 255, 0.1);
+  stroke: #aaa;
+}
+
+.stock__chart .ngx-charts .polar-chart .polar-chart-background {
+  fill: #1e222e;
+}
+
+.stock__chart .chart-legend .legend-labels {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.stock__chart .chart-legend .legend-item:hover {
+  color: #fff;
+}
+
+.stock__chart .chart-legend .legend-label:hover {
+  color: #fff !important;
+}
+
+.stock__chart .chart-legend .legend-label .active .legend-label-text {
+  color: #fff !important;
+}
+
+.stock__chart .chart-legend .scale-legend-label {
+  color: #A0AABE;
+}
+
+.stock__chart .advanced-pie-legend {
+  color: #A0AABE;
+}
+
+.stock__chart .advanced-pie-legend .legend-item:hover {
+  color: #fff !important;
+}
+
+.stock__chart .number-card .number-card-label {
+  font-size: 0.8em;
+  color: #A0AABE;
+}

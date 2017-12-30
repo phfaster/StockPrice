@@ -1,0 +1,105 @@
+.stocks_add {
+  position: relative;
+  width: 50%;
+  margin: 0 auto 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 1em;
+}
+
+@keyframes addInputLoading {
+  from {
+    background: rgba(57, 114, 199, 0.7);
+  }
+  to {
+    background: rgba(57, 114, 199, 0.4);
+  }
+}
+
+@keyframes addInputError {
+  from {
+    background: rgba(199, 57, 57, 0.7);
+  }
+  to {
+    background: rgba(199, 57, 57, 0.4);
+  }
+}
+
+.stock_add__loading {
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background: rgba(57, 114, 199, 0.7);
+  top: 0;
+  left: 1em;
+  right: 1em;
+  height: 100%;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 50px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 0 20px;
+  transition: visibility 0s ease .3s,
+              opacity .3s ease 0s;
+}
+
+.stock_add__loading.error {
+  background: rgba(199, 57, 57, 0.7);
+}
+
+.stock_add__loading.visible {
+  opacity: 1;
+  visibility: visible;
+  animation-name: addInputLoading;
+  animation-duration: 1s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  transition-delay: 0s, 0s;
+}
+
+.stock_add__loading.error.visible {
+  animation-name: addInputError;
+}
+
+.stocks_add > input {
+  flex: 1;
+}
+
+.stocks_add > a.button {
+  width: auto;
+  flex-shrink: 0;
+  padding: 0 30px;
+  margin-left: 15px;
+  height: 2.75em;
+  line-height: 2.75em;
+}
+
+@media screen and (max-width: 736px) {
+
+  .stocks_add {
+    width: 100%;
+  }
+
+}
+
+.stocks-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 1em;
+}
+
+.stocks-pagination > a {
+  margin: 0 15px 15px;
+  padding: 0 20px;
+}
+
+.stocks-pagination > a.active {
+  background-color: #272f3e;
+}

@@ -1,0 +1,27 @@
+<div *ngIf="stock;else stockLoading">
+  <div id="stock__header">
+    <a class="button header__back-button" (click)="goBack()">Back</a>
+    <h1 class="header__title">{{ stock.title }}<span>{{stock.status === true ? 'Actual from '+stock.lastPrice.timeString : (stock.status === false ? 'Loading' : 'Cached at '+stock.lastPrice.timeString)}}</span></h1>
+  </div>
+  <div class="stock__signs">
+    <p class="stock__sign" *ngFor="let signName of signNames; index as i;" [ngStyle]="{borderColor: signColors[i]}">{{signName}}</p>
+  </div>
+  <div class="stock__chart">
+    <app-ngx-charts-line-chart
+      [scheme]="colorScheme"
+      [results]="pricesChart"
+      [additionalTooltipFields]="[volumesData]"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="showLegend"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [autoScale]="true">
+    </app-ngx-charts-line-chart>
+  </div>
+</div>
+<ng-template #stockLoading>
+  <p class="stocksLoading">Loading stock prices...</p>
+</ng-template>

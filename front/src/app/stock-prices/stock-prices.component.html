@@ -1,0 +1,34 @@
+<div class="stocks_add">
+  <div class="stock_add__loading" [ngClass]="{'visible': !!addInputLoading, 'error': addInputLoadingTypeIsError}">{{addInputLoading || ''}}</div>
+  <input [(ngModel)]="addInputValue" type="text" placeholder="ex.: AAPL">
+  <a class="button" (click)="addStock()">ADD</a>
+</div>
+
+<div *ngIf="stocks;else stocksNone">
+  <app-stock-boxes [stocks]="stocks" (stocksEndLoad)="stocksLoaded()" (stockDeleted)="stocksDeleted($event)"></app-stock-boxes>
+  <div *ngIf="totalPages > 1" class="stocks-pagination">
+    <a
+      *ngIf="page.num"
+      class="button stock-pagination__back"
+      href="/?page={{page.num-1}}"
+      (click)="toPagePreventClick($event, page.num-1)"
+    >Back</a>
+    <a
+      *ngFor="let n of getRange(totalPages); index as i"
+      href="/?page={{i}}"
+      class="button stock-pagination__number"
+      [ngClass]="{'active': i===page.num}"
+      (click)="(i===page.num) || toPagePreventClick($event, i)"
+    >{{i+1}}</a>
+    <a
+      *ngIf="(page.num+1) < totalPages"
+      href="/?page={{page.num+1}}"
+      class="button stock-pagination__forward"
+      (click)="toPagePreventClick($event, page.num+1)"
+    >Forward</a>
+  </div>
+</div>
+
+<ng-template #stocksNone>
+  <p class="stocksLoading">{{noStocks ? 'No stocks' : 'Loading stocks...'}}</p>
+</ng-template>
