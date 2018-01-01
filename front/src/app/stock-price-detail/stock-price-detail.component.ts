@@ -31,6 +31,8 @@ export class StockPriceDetailComponent implements OnInit, OnDestroy {
   private typesOrder = ['Open', 'High', 'Low', 'Close', 'Volume'];
 
   /* Chart settings */
+  showFlags = [true, true, true, true];
+
   // options
   showLegend = false;
   xAxisLabel = 'Minutes';
@@ -43,6 +45,7 @@ export class StockPriceDetailComponent implements OnInit, OnDestroy {
   };
 
   pricesChart: ChartLine[];
+  filteredChart: ChartLine[];
   volumesData: ChartLine;
   /* End Chart settings */
 
@@ -86,7 +89,7 @@ export class StockPriceDetailComponent implements OnInit, OnDestroy {
           this.insertToChart(price, pricesChart, volumesData);
         }
 
-        this.pricesChart = pricesChart;
+        this.filteredChart = this.pricesChart = pricesChart;
         this.volumesData = volumesData;
 
         stock.lastPrice = stockPrices[stockPrices.length - 1];
@@ -197,6 +200,24 @@ export class StockPriceDetailComponent implements OnInit, OnDestroy {
           stock.lastPrice = stockPrices[stockPrices.length - 1];
         }
       });
+  }
+
+  filterChart(cIdx) {
+    const showFlags = this.showFlags;
+    showFlags[cIdx] = !showFlags[cIdx];
+    const origSignColors = this.signColors;
+    const signColors = [];
+    this.filteredChart = this.pricesChart.filter((line, idx) => {
+      const flag = showFlags[idx];
+      if (flag) {
+        signColors.push(origSignColors[idx]);
+      }
+      return flag;
+    });
+    signColors.push(origSignColors[4]);
+    this.colorScheme = {
+      domain: signColors
+    };
   }
 
   goBack() {

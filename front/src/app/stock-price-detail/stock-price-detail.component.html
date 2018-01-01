@@ -4,12 +4,12 @@
     <h1 class="header__title">{{ stock.title }}<span>{{stock.status === true ? 'Actual from '+stock.lastPrice.timeString : (stock.status === false ? 'Loading' : 'Cached at '+stock.lastPrice.timeString)}}</span></h1>
   </div>
   <div class="stock__signs">
-    <p class="stock__sign" *ngFor="let signName of signNames; index as i;" [ngStyle]="{borderColor: signColors[i]}">{{signName}}</p>
+    <p class="stock__sign" *ngFor="let signName of signNames; index as i;" [ngStyle]="{borderColor: showFlags[i] ? signColors[i] : 'rgb(62, 72, 90)'}" (click)="filterChart(i)">{{signName}}</p>
   </div>
   <div class="stock__chart">
     <app-ngx-charts-line-chart
       [scheme]="colorScheme"
-      [results]="pricesChart"
+      [results]="filteredChart"
       [additionalTooltipFields]="[volumesData]"
       [xAxis]="true"
       [yAxis]="true"
