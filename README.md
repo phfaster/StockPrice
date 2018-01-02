@@ -27,3 +27,31 @@ or
 ```
 > node back/app.js
 ```
+
+## Stopping
+1. Stop node server:
+*Root repository folder*
+
+After:
+> npm start
+
+or
+> node back/app.js
+
+Press:
+`Ctrl + C` or `Cmd + C` on Mac.
+***
+
+After:
+> forever start back/app.js
+
+Run:
+```
+> forever stop back/app.js
+```
+
+2. Stop nginx server:
+*Root repository folder*
+```
+> (sudo) npm run ngx stop
+```

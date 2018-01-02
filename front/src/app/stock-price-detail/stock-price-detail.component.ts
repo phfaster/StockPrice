@@ -204,17 +204,25 @@ export class StockPriceDetailComponent implements OnInit, OnDestroy {
 
   filterChart(cIdx) {
     const showFlags = this.showFlags;
-    showFlags[cIdx] = !showFlags[cIdx];
     const origSignColors = this.signColors;
+
     const signColors = [];
-    this.filteredChart = this.pricesChart.filter((line, idx) => {
-      const flag = showFlags[idx];
+    const filteredChart = this.pricesChart.filter((line, idx) => {
+      const flag = (idx === cIdx) ? !showFlags[idx] : showFlags[idx];
       if (flag) {
         signColors.push(origSignColors[idx]);
       }
       return flag;
     });
     signColors.push(origSignColors[4]);
+
+    if (!filteredChart.length) {
+      return;
+    }
+
+    showFlags[cIdx] = !showFlags[cIdx];
+
+    this.filteredChart = filteredChart;
     this.colorScheme = {
       domain: signColors
     };
