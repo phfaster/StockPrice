@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const spawn = require('child_process').spawn;
+const readline = require('readline');
 const path = require('path');
 const pathToNginxDir = __dirname;
 const pathToConfig = `${pathToNginxDir}/config.json`;
@@ -48,33 +49,60 @@ if(fs.existsSync(pathToCompiledConfig) && cmd !== 'recompile' && cmd !== 'rc') {
     runNGINX()
 }
 else {
-    let config = {
-        nginxUser: 'nobody',
-        nginxGroup: 'nobody',
-        pathToProject: path.resolve(pathToNginxDir+'/../'),
-        pathToNginxDir: pathToNginxDir
-    };
+    (async () => {
+        let config = {
+            pathToProject: path.resolve(pathToNginxDir+'/../'),
+            pathToNginxDir: pathToNginxDir
+        };
 
-    if(fs.existsSync(pathToConfig)) {
-        fsConfig = require(pathToConfig);
-        Object.assign(config, fsConfig);
-    }
+        if(fs.existsSync(pathToConfig)) {
+            fsConfig = require(pathToConfig);
+            Object.assign(config, fsConfig);
+        }
 
-    console.log('Recompilling...');
-
-    fs
-        .readFile(`${pathToNginxDir}/config.conf`)
-        .then(configFile => {
-            configFile = configFile.toString().replace(/(\${([a-z]+)})/gi, (mathed, $1, nameOfReplace) => {
-                const toReplace = config[nameOfReplace];
-                if(!toReplace) return '';
-                return toReplace
+        if (!config.nginxUser || !config.nginxGroup) {
+            const rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout
             });
 
-            return fs.outputFile(pathToCompiledConfig, configFile)
-        })
-        .then(() => runNGINX())
-        .catch(err => {
-            console.error(err)
-        })
+            const question = ques => {
+                return new Promise(resolve => {
+                    rl.question(ques, resolve);
+                });
+            };
+
+            const askUser = async ques => {
+                let answer = await question(ques+'\n');
+
+                if (answer = answer.trim()) {
+                    return answer;
+                } else {
+                    return 'nobody';
+                }
+            };
+
+            let nginxUser = await askUser('Enter the name of the user who has access to the files in the repository folder:');
+            let nginxGroup = await askUser('Enter the user group entered above:');
+
+            rl.close();
+
+            config.nginxUser = nginxUser;
+            config.nginxGroup = nginxGroup;
+        }
+
+        console.log('Recompilling...');
+
+        let configFile = await fs.readFile(`${pathToNginxDir}/config.conf`);
+
+        configFile = configFile.toString().replace(/(\${([a-z]+)})/gi, (mathed, $1, nameOfReplace) => {
+            const toReplace = config[nameOfReplace];
+            if(!toReplace) return '';
+            return toReplace
+        });
+
+        await fs.outputFile(pathToCompiledConfig, configFile);
+
+        runNGINX();
+    })();
 }
