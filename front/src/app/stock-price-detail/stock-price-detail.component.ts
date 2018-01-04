@@ -190,12 +190,7 @@ export class StockPriceDetailComponent implements OnInit, OnDestroy {
         }
 
         if (changed) {
-          this.pricesChart = [
-            pricesChart[0],
-            pricesChart[1],
-            pricesChart[2],
-            pricesChart[3]
-          ];
+          this.filterChart(false);
 
           stock.lastPrice = stockPrices[stockPrices.length - 1];
         }
@@ -208,7 +203,11 @@ export class StockPriceDetailComponent implements OnInit, OnDestroy {
 
     const signColors = [];
     const filteredChart = this.pricesChart.filter((line, idx) => {
-      const flag = (idx === cIdx) ? !showFlags[idx] : showFlags[idx];
+      let flag = showFlags[idx];
+      if (cIdx !== false && idx === cIdx) {
+        flag = !showFlags[idx];
+      }
+
       if (flag) {
         signColors.push(origSignColors[idx]);
       }
@@ -217,6 +216,11 @@ export class StockPriceDetailComponent implements OnInit, OnDestroy {
     signColors.push(origSignColors[4]);
 
     if (!filteredChart.length) {
+      return;
+    }
+
+    if (cIdx === false) {
+      this.filteredChart = filteredChart;
       return;
     }
 
