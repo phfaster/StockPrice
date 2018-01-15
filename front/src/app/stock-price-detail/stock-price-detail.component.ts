@@ -4,7 +4,6 @@ import { Location, DatePipe } from '@angular/common';
 import { TransformDate } from '../transformDate';
 
 import { Stock } from '../stock';
-import {StockPrice} from '../stock-price';
 
 import { StockPricesService } from '../stock-prices.service';
 
